@@ -6,7 +6,16 @@ export default function NavBar() {
   return (
     <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
         <Dropdown>
-            <div>Hello</div>
+            <div>
+                <div>
+                    hello
+                </div>
+                <div>
+                    h
+                </div>
+
+            </div>
+
         </Dropdown>
 
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
