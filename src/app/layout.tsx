@@ -20,6 +20,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <NavBar></NavBar>
         <main className="bg-slate-100">{children}</main>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
       </body>
     </html>
   );
