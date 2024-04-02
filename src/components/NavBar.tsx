@@ -5,7 +5,10 @@ export default function NavBar() {
     const dropdownItems = ['Item 1', 'Item 2', 'Item 3'];
   return (
     <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-        <Dropdown items={dropdownItems}></Dropdown>
+        <Dropdown>
+            <div>Hello</div>
+        </Dropdown>
+
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />

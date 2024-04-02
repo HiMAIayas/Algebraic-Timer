@@ -1,12 +1,13 @@
 "use client"
 // components/Dropdown.tsx
 import { useState } from 'react';
+import React, { ReactElement, ReactNode } from "react";
 
-interface DropdownProps {
-  items: string[];
-}
+interface ChildComponentProps {
+    children: ReactElement;
+  }
 
-const Dropdown: React.FC<DropdownProps> = ({ items }) => {
+const Dropdown = ({ children }:ChildComponentProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -27,26 +28,18 @@ const Dropdown: React.FC<DropdownProps> = ({ items }) => {
           fill="currentColor"
           aria-hidden="true"
         >
-          <path
-            fillRule="evenodd"
-            d="M10.293 14.95a1 1 0 001.414 0l5-5a1 1 0 00-1.414-1.414L10 12.586l-4.293-4.293a1 1 0 10-1.414 1.414l5 5a1 1 0 001.414 0z"
-            clipRule="evenodd"
-          />
         </svg>
       </button>
 
-      {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 divide-y divide-gray-200 rounded-md shadow-lg">
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className="flex items-center justify-between px-4 py-2 hover:bg-gray-100"
-            >
-              <span className="text-sm text-gray-800">{item}</span>
-            </div>
-          ))}
+      
+        <div className={`z-10 absolute mt-2 w-48 bg-white border border-gray-200 divide-y divide-gray-200 rounded-md shadow-lg ${
+            isOpen ? 'transition-all duration-300 ease-in-out opacity-100 scale-y-100' : 'transition-all duration-300 ease-in-out opacity-0 scale-y-0'
+          }`}>
+          {React.cloneElement(children, {
+                onClick: () => console.log("click"),
+              })}
         </div>
-      )}
+      
     </div>
   );
 };
