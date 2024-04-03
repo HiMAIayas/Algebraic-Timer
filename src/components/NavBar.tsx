@@ -1,22 +1,21 @@
 import React from 'react'
 import Dropdown from './Dropdown';
+import Link from 'next/link';
 
 export default function NavBar() {
     const dropdownItems = ['Item 1', 'Item 2', 'Item 3'];
   return (
     <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-        <Dropdown>
-            <div>
-                <div>
-                    hello
+        <Dropdown dropdownLink={"#nav-dropdown"}></Dropdown>
+        <div className='w-full bg-slate-300' id="#nav-dropdown">
+                <div className='w-full'>
+                    <Link href="/">Home</Link>
                 </div>
-                <div>
-                    h
+                <div className='w-full'>
+                    <Link href="/timer">Timer</Link>
                 </div>
+        </div>
 
-            </div>
-
-        </Dropdown>
 
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
