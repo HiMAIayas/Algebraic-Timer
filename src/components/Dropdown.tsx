@@ -16,8 +16,8 @@ const Dropdown = ({ dropdownLink }:ChildComponentProps) => {
     console.log(event.currentTarget.dataset.dropdowntoggle);
     
     const target = document.getElementById(event.currentTarget.dataset.dropdowntoggle!);
-    console.log(target);
-    //target!.classList.add(isOpen ? 'hidden' : 'transition-all')
+    console.log(target?.classList.value);
+    //target!.classList.add(isOpen ? 'hidden' : 'transition-all');
   };
 
   return (

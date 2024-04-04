@@ -1,50 +1,95 @@
-import React from 'react'
-import Dropdown from './Dropdown';
-import Link from 'next/link';
+"use client"
+import React, { useState } from 'react';
 
-export default function NavBar() {
-    const dropdownItems = ['Item 1', 'Item 2', 'Item 3'];
+function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-        <Dropdown dropdownLink={"#nav-dropdown"}></Dropdown>
-        <div className='w-full bg-slate-300' id="#nav-dropdown">
-                <div className='w-full'>
-                    <Link href="/">Home</Link>
-                </div>
-                <div className='w-full'>
-                    <Link href="/timer">Timer</Link>
-                </div>
+    <nav className="bg-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex-shrink-0">
+            <span className="text-white text-lg">Your Logo</span>
+          </div>
+          <div className="hidden sm:block">
+            <div className="flex space-x-4">
+              <a href="#" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
+                Home
+              </a>
+              <a href="#" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
+                About
+              </a>
+              <a href="#" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
+                Services
+              </a>
+              <a href="#" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
+                Contact
+              </a>
+            </div>
+          </div>
+          <div className="block sm:hidden">
+            <button
+              onClick={handleToggle}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            >
+              <span className="sr-only">Open main menu</span>
+              <svg
+                className={`${isOpen ? 'hidden' : 'block'} h-6 w-6`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+              <svg
+                className={`${isOpen ? 'block' : 'hidden'} h-6 w-6`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
-
-
-  <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
-        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-    </a>
-    <button data-collapse-toggle="navbar-hamburger" type="button" className="inline-flex items-center justify-center p-2 w-10 h-10 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-hamburger" aria-expanded="false">
-      <span className="sr-only">Open main menu</span>
-      <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
-      </svg>
-    </button>
-    <div className="hidden w-full transition ease-in-out delay-100" id="navbar-hamburger">
-      <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-        <li>
-          <a href="#" className="block py-2 px-3 text-white bg-blue-700 rounded dark:bg-blue-600" aria-current="page">Home</a>
-        </li>
-        <li>
-          <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Services</a>
-        </li>
-        <li>
-          <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white">Pricing</a>
-        </li>
-        <li>
-          <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Contact</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-  )
+      </div>
+      {/* Mobile menu */}
+      <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden`}>
+        <div className="px-2 pt-2 pb-3 space-y-1">
+          <a href="#" className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">
+            Home
+          </a>
+          <a href="#" className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">
+            About
+          </a>
+          <a href="#" className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">
+            Services
+          </a>
+          <a href="#" className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">
+            Contact
+          </a>
+        </div>
+      </div>
+    </nav>
+  );
 }
+
+export default Navbar;
