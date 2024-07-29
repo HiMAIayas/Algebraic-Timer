@@ -7,9 +7,9 @@ import React, { useState } from 'react'
 
 
 const links = [
-  { title: "Timer", href: "/", icon: "/timer.png" },
-  { title: "Global Time", href: "/globaltime", icon: "/global-time.png" },
-  { title: "Time Stat", href: "/timestat", icon: "/stat.png" },
+  { title: "Timer", href: "/", icon: "./timer.png" },
+  { title: "Global Time", href: "/globaltime", icon: "./global-time.png" },
+  { title: "Time Stat", href: "/timestat", icon: "./stat.png" },
 ];
 
 export default function NavBar() {
