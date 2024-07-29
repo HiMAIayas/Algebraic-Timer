@@ -7,9 +7,9 @@ import React, { useState } from 'react'
 
 
 const links = [
-  { title: "Timer", href: "/", icon: "./timer.png" },
-  { title: "Global Time", href: "/globaltime", icon: "./global-time.png" },
-  { title: "Time Stat", href: "/timestat", icon: "./stat.png" },
+  { title: "Timer", href: "/", icon: "./images/timer-white.png" },
+  { title: "Global Time", href: "/globaltime", icon: "./images/global-time-white.png" },
+  { title: "Time Stat", href: "/timestat", icon: "./images/stat-white.png" },
 ];
 
 export default function NavBar() {
@@ -19,7 +19,7 @@ export default function NavBar() {
     <div className='fixed z-10 w-full'>
 
       {/* Header */}
-      <div className='relative z-20 h-10 md:h-14 px-5 md:px-24 flex justify-between items-center bg-white text-black shadow-md'>
+      <div className='relative z-20 h-10 md:h-14 px-5 md:px-24 flex justify-between items-center bg-[#272635] text-white'>
 
         {/* Hamburgur */}
         <div className='flex md:hidden p-1 justify-center items-center'
@@ -30,9 +30,9 @@ export default function NavBar() {
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
               <g id="SVGRepo_iconCarrier">
-                <path d="M4 18H10" stroke="#000000" stroke-width="2" stroke-linecap="round"></path>
-                <path d="M4 12L16 12" stroke="#000000" stroke-width="2" stroke-linecap="round"></path>
-                <path d="M4 6L20 6" stroke="#000000" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M4 18H10" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M4 12L16 12" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M4 6L20 6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path>
               </g>
             </svg>
           </div>
@@ -47,7 +47,7 @@ export default function NavBar() {
               <div className='hover:bg-slate-200 flex justify-center items-center gap-1 p-2 rounded-md'
                 key={title}
               >
-                <img className="size-[15px]" src={icon}></img>
+                <img className="size-[15px] " src={icon}></img>
                 <Link href={href}>{title}</Link>
               </div>
             ))}
@@ -63,7 +63,7 @@ export default function NavBar() {
         <motion.div className='absolute left-0 top-10 backdrop-blur-sm w-full h-screen flex justify-start'
           onClick={() => setIsOpen(false)}>
 
-          <motion.div className='py-10 w-[200px] bg-white'
+          <motion.div className='py-10 w-[200px] bg-[#A6A6A8]'
           initial={{translateX:"-200px"}}
           animate={{translateX:"0px"}}
           exit={{translateX:"-200px"}}

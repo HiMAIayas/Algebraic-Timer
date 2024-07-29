@@ -16,6 +16,12 @@
   }
 }
 
+@font-face {
+  font-family: "Digital";
+  src: url("../fonts/digital-7.ttf");
+}
+
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -30,4 +36,8 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.font-digital{
+  font-family: "Digital";
 }

@@ -16,10 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-slate-100">
+    <html lang="en">
       <body className={inter.className}>
         <NavBar></NavBar>
-        <main className="bg-slate-100">{children}</main>
+        <main className="bg-[#E8E9F3] w-full min-h-screen">{children}</main>
       </body>
     </html>
   );
