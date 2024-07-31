@@ -8,6 +8,13 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -19,6 +26,10 @@
 @font-face {
   font-family: "Digital";
   src: url("../fonts/digital-7.ttf");
+}
+@font-face {
+  font-family: "Digital-mono";
+  src: url("../fonts/digital-7-mono.ttf");
 }
 
 
@@ -40,4 +51,7 @@ body {
 
 .font-digital{
   font-family: "Digital";
+}
+.font-digital-mono{
+  font-family: "Digital-mono";
 }

@@ -3,9 +3,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { displayTime, displayToSec, secToDisplay } from '@/libs/time-function';
 import { evaluate, parser } from 'mathjs';
+import YearTimer from './YearTimer';
 
 
-
+//Note: text-wdith = 0.45*font-size(text height)
 
 export default function Timer() {
     const [timer, setTimer] = useState({
@@ -13,7 +14,8 @@ export default function Timer() {
         sec: 0,
         min: 0,
         hour: 0,
-        day: 0
+        day: 0,
+        year: 0
     });
     const [phase, setPhase] = useState("default"); //default stop running end
 
@@ -86,7 +88,10 @@ export default function Timer() {
             fn = pars.evaluate(`f(${time_n.current})`);
 
             interval = setInterval(() => {
-                if (time_t.current >= time_n.current) setPhase("end");
+                if (time_t.current >= time_n.current) {
+                    setTimer({ms:0, sec:0, min:0, hour:0, day:0, year:0});
+                    setPhase("end");
+                }
                 else {
                     time_t.current += 0.05;
                     setTimer(secToDisplay(fn - pars.evaluate(`f(${time_t.current})`)));
@@ -121,47 +126,64 @@ export default function Timer() {
                 </div>
 
                 {/* Timer */}
-                <div className='flex text-7xl w-full justify-center my-32 font-digital'>
+                <div className='flex flex-wrap text-7xl w-full justify-center my-32 font-digital-mono gap-10'>
 
-                    <div className='flex flex-col items-center ml-2'>
-                        <input className='placeholder:text-black bg-transparent p-1 w-[125px]'
-                            type='number' max={59} min={0}
-                            onChange={(event) => handleOnChange(event.target.value, "day")}
-                            value={displayTime(timer.day, 3)}></input>
-                        <span className='text-sm'>day</span>
+
+                    {/* year */}
+                    {timer.year != 0 && (
+                        <div className='flex'>
+                            <div className='flex flex-col items-center ml-2'>
+                                <YearTimer year={timer.year}></YearTimer>
+                                <span className='text-sm'>year</span>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* day */}
+                    {timer.day != 0 && (
+                        <div className='flex'>
+                            <div className='flex flex-col items-center ml-2'>
+                                <div className='bg-transparent p-1'>{displayTime(timer.day, 3)}</div>
+                                <span className='text-sm'>day</span>
+                            </div>
+                        </div>
+                    )}
+
+
+
+                    {/* hr/min/sec */}
+                    <div className='flex'>
+
+                        <div className='flex flex-col items-center'>
+                            <input className='placeholder:text-black bg-transparent p-1 w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
+                                type='number' max={23} min={0}
+                                onChange={(event) => handleOnChange(event.target.value, "hour")}
+                                value={displayTime(timer.hour, 2)}></input>
+                            <span className='text-sm'>hr</span>
+                        </div>
+
+                        <span>:</span>
+
+                        <div className='flex flex-col items-center'>
+                            <input className='placeholder:text-black bg-transparent p-1 w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
+                                type='number' max={59} min={0}
+                                onChange={(event) => handleOnChange(event.target.value, "min")}
+                                value={displayTime(timer.min, 2)}></input>
+                            <span className='text-sm'>min</span>
+                        </div>
+
+                        <span>:</span>
+
+                        <div className='flex flex-col items-center'>
+                            <input className='placeholder:text-black bg-transparent p-1 w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
+                                type='number' max={59} min={0}
+                                onChange={(event) => handleOnChange(event.target.value, "sec")}
+                                value={displayTime(timer.sec, 2)}></input>
+                            <span className='text-sm'>sec</span>
+                        </div>
+
+                        <span className='text-3xl'>.{displayTime(timer.ms, 2)}</span>
                     </div>
-
-                    <span>:</span>
-
-                    <div className='flex flex-col items-center ml-2'>
-                        <input className='placeholder:text-black bg-transparent p-1 w-[95px]'
-                            type='number' max={23} min={0}
-                            onChange={(event) => handleOnChange(event.target.value, "hour")}
-                            value={displayTime(timer.hour, 2)}></input>
-                        <span className='text-sm'>hr</span>
-                    </div>
-
-                    <span>:</span>
-
-                    <div className='flex flex-col items-center ml-2'>
-                        <input className='placeholder:text-black bg-transparent p-1 w-[95px]'
-                            type='number' max={59} min={0}
-                            onChange={(event) => handleOnChange(event.target.value, "min")}
-                            value={displayTime(timer.min, 2)}></input>
-                        <span className='text-sm'>min</span>
-                    </div>
-
-                    <span>:</span>
-
-                    <div className='flex flex-col items-center ml-2'>
-                        <input className='placeholder:text-black bg-transparent p-1 w-[95px]'
-                            type='number' max={59} min={0}
-                            onChange={(event) => handleOnChange(event.target.value, "sec")}
-                            value={displayTime(timer.sec, 2)}></input>
-                        <span className='text-sm'>sec</span>
-                    </div>
-
-                    <span className='text-3xl'>.{displayTime(timer.ms, 2)}</span>
                 </div>
 
                 {/* Button */}
@@ -171,17 +193,22 @@ export default function Timer() {
                     ) : (
                         <div className='flex gap-2'>
                             {phase != "end" && (
-                                <button type="button" className='py-1.5 rounded-md bg-indigo-300 hover:bg-indigo-400 text-sm'
-                                    onClick={() => toggleTimer()}>{phase === "running" ? "Stop" : "Start"}</button>
+                                <div className='p-3 rounded-full bg-indigo-300 hover:bg-indigo-400 text-sm'
+                                    onClick={() => toggleTimer()}>
+                                    <img className='w-[20px]' src={phase==="running"?"./images/pause-btn.png" : "./images/play-btn.png"}></img>    
+                                </div>
                             )}
-                            <button type="button" className='py-1.5 rounded-md bg-red-300 text-sm hover:bg-red-400'
-                                onClick={() => setPhase('default')}>Reset</button>
+                            <div className='p-3 rounded-full bg-red-300 text-sm hover:bg-red-400'
+                                onClick={() => setPhase('default')}>
+                                    <img className='w-[20px]' src="./images/reset-btn.png"></img>
+                                </div>
 
 
                         </div>
                     )}
 
                 </div>
+
             </form>
 
 

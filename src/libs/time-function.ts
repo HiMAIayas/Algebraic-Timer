@@ -17,6 +17,10 @@ export function displayTime(num:number, digit:number){
   )
 }
 
+export function displayYear(num:number){
+    return 0
+}
+
 
 export function displayToSec({ms,sec,min,hour,day}:DisplayTimerType){
     // 1 day = 60*60*24 = 86400 sec
@@ -46,6 +50,7 @@ export function secToDisplay(time:number){
         min:min,
         hour:hour,
         day:day,
+        year:year
     });
 }
 
