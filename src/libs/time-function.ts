@@ -28,6 +28,11 @@ export function displayToSec({ms,sec,min,hour,day}:DisplayTimerType){
 }
 
 export function secToDisplay(time:number){
+    let isPositive = true
+    if (time<0){
+        time = Math.abs(time);
+        isPositive = false;
+    }
     //Based on 1 year = 365 days && 1 day = 24 hours exactly
     const year = Math.floor(time/31536000);
     time = time%31536000;
@@ -45,6 +50,7 @@ export function secToDisplay(time:number){
     const ms = (time-sec)*1000;
 
     return ({
+        isPositive:isPositive,
         ms:ms,
         sec:sec,
         min:min,

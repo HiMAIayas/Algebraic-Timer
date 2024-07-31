@@ -4,12 +4,14 @@ import React, { useEffect, useRef, useState } from 'react'
 import { displayTime, displayToSec, secToDisplay } from '@/libs/time-function';
 import { evaluate, parser } from 'mathjs';
 import YearTimer from './YearTimer';
+import { motion } from 'framer-motion';
 
 
 //Note: text-wdith = 0.45*font-size(text height)
 
 export default function Timer() {
     const [timer, setTimer] = useState({
+        isPositive: true,
         ms: 0,
         sec: 0,
         min: 0,
@@ -54,8 +56,6 @@ export default function Timer() {
         if (isReady) {
             setPhase("stop");
         }
-
-
     }
 
     function handleOnChange(value: string, segment: string) { //We not accept day input. Who the fuck are gonna set timer for days?
@@ -78,6 +78,11 @@ export default function Timer() {
         else if (phase === "running") setPhase("stop");
     }
 
+    function reset() {
+        setTimer({ isPositive: true, ms: 0, sec: 0, min: 0, hour: 0, day: 0, year: 0 });
+        setPhase('default');
+    }
+
 
     useEffect(() => { //TODO: use Date.now() to track time instead of manual timer. 
         const pars = parser();
@@ -89,7 +94,7 @@ export default function Timer() {
 
             interval = setInterval(() => {
                 if (time_t.current >= time_n.current) {
-                    setTimer({ms:0, sec:0, min:0, hour:0, day:0, year:0});
+                    setTimer({ isPositive: true, ms: 0, sec: 0, min: 0, hour: 0, day: 0, year: 0 });
                     setPhase("end");
                 }
                 else {
@@ -126,64 +131,81 @@ export default function Timer() {
                 </div>
 
                 {/* Timer */}
-                <div className='flex flex-wrap text-5xl sm:text-7xl w-full justify-center my-32 font-digital-mono gap-10'>
+                <div className='flex text-5xl sm:text-7xl w-full justify-center items-center pt-28 pb-16 font-digital-mono'
+
+                >
 
 
-                    {/* year */}
-                    {timer.year != 0 && (
-                        <div className='flex'>
-                            <div className='flex flex-col items-center ml-2'>
-                                <YearTimer year={timer.year}></YearTimer>
-                                <span className='text-lg'>year</span>
+
+                    <motion.div className='relative flex flex-col gap-10 items-center' layout
+                    >
+                        {!timer.isPositive && (
+                            <span className='absolute -left-10'>-</span>
+                        )}
+
+
+                        {/* year */}
+                        {timer.year != 0 && (
+                            <div className='flex'>
+                                <div className='flex flex-col items-center ml-2'>
+                                    <YearTimer year={timer.year}></YearTimer>
+                                    <span className='text-lg'>year</span>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
 
-                    {/* day */}
-                    {timer.day != 0 && (
-                        <div className='flex'>
-                            <div className='flex flex-col items-center ml-2'>
-                                <div className='bg-transparent p-1'>{displayTime(timer.day, 3)}</div>
-                                <span className='text-lg'>day</span>
+                        {/* day */}
+                        {(timer.day != 0) && (
+                            <div className='flex'>
+                                <div className='flex flex-col items-center ml-2'>
+                                    <div className='bg-transparent p-1'>{displayTime(timer.day, 3)}</div>
+                                    <span className='text-lg'>day</span>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
 
 
 
-                    {/* hr/min/sec */}
-                    <div className='flex'>
+                        {/* hr/min/sec */}
+                        {timer.year === 0 && (
+                            <div className='flex'>
 
-                        <div className='flex flex-col items-center'>
-                            <input className='placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
-                                type='number' max={23} min={0}
-                                onChange={(event) => handleOnChange(event.target.value, "hour")}
-                                value={displayTime(timer.hour, 2)}></input>
-                            <span className='text-lg'>hr</span>
-                        </div>
+                                <div className='flex flex-col items-center'>
+                                    <input className='placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
+                                        type='number' max={23} min={0}
+                                        onChange={(event) => handleOnChange(event.target.value, "hour")}
+                                        value={displayTime(timer.hour, 2)}></input>
+                                    <span className='text-lg'>hr</span>
+                                </div>
 
-                        <span>:</span>
+                                <span>:</span>
 
-                        <div className='flex flex-col items-center'>
-                            <input className='placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
-                                type='number' max={59} min={0}
-                                onChange={(event) => handleOnChange(event.target.value, "min")}
-                                value={displayTime(timer.min, 2)}></input>
-                            <span className='text-lg'>min</span>
-                        </div>
+                                <div className='flex flex-col items-center'>
+                                    <input className='placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
+                                        type='number' max={59} min={0}
+                                        onChange={(event) => handleOnChange(event.target.value, "min")}
+                                        value={displayTime(timer.min, 2)}></input>
+                                    <span className='text-lg'>min</span>
+                                </div>
 
-                        <span>:</span>
+                                <span>:</span>
 
-                        <div className='flex flex-col items-center'>
-                            <input className='placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
-                                type='number' max={59} min={0}
-                                onChange={(event) => handleOnChange(event.target.value, "sec")}
-                                value={displayTime(timer.sec, 2)}></input>
-                            <span className='text-lg'>sec</span>
-                        </div>
+                                <div className='flex flex-col items-center'>
+                                    <input className='placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
+                                        type='number' max={59} min={0}
+                                        onChange={(event) => handleOnChange(event.target.value, "sec")}
+                                        value={displayTime(timer.sec, 2)}></input>
+                                    <span className='text-lg'>sec</span>
+                                </div>
 
-                        <span className='text-xl sm:text-3xl'>.{displayTime(timer.ms, 2)}</span>
-                    </div>
+                                <span className='absolute -right-10 text-xl sm:text-3xl'>.{displayTime(timer.ms, 2)}</span>
+
+                            </div>
+
+                        )}
+                    </motion.div>
+
+
                 </div>
 
                 {/* Button */}
@@ -195,13 +217,13 @@ export default function Timer() {
                             {phase != "end" && (
                                 <div className='p-3 rounded-full bg-indigo-300 hover:bg-indigo-400 text-sm'
                                     onClick={() => toggleTimer()}>
-                                    <img className='w-[20px]' src={phase==="running"?"./images/pause-btn.png" : "./images/play-btn.png"}></img>    
+                                    <img className='w-[20px]' src={phase === "running" ? "./images/pause-btn.png" : "./images/play-btn.png"}></img>
                                 </div>
                             )}
                             <div className='p-3 rounded-full bg-red-300 text-sm hover:bg-red-400'
-                                onClick={() => setPhase('default')}>
-                                    <img className='w-[20px]' src="./images/reset-btn.png"></img>
-                                </div>
+                                onClick={() => reset()}>
+                                <img className='w-[20px]' src="./images/reset-btn.png"></img>
+                            </div>
 
 
                         </div>
