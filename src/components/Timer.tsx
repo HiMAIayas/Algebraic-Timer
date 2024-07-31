@@ -111,7 +111,7 @@ export default function Timer() {
         <div>
             <form onSubmit={checkAvalability}>
                 {/* Function input */}
-                <div className='px-48'>
+                <div className='sm:px-12 md:px-24 lg:px-48'>
                     <label htmlFor="equation" className="text-sm font-medium leading-6 text-gray-900">Enter Equation</label>
                     <div className="relative mt-2 rounded-md shadow-sm flex">
                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -126,7 +126,7 @@ export default function Timer() {
                 </div>
 
                 {/* Timer */}
-                <div className='flex flex-wrap text-7xl w-full justify-center my-32 font-digital-mono gap-10'>
+                <div className='flex flex-wrap text-5xl sm:text-7xl w-full justify-center my-32 font-digital-mono gap-10'>
 
 
                     {/* year */}
@@ -134,7 +134,7 @@ export default function Timer() {
                         <div className='flex'>
                             <div className='flex flex-col items-center ml-2'>
                                 <YearTimer year={timer.year}></YearTimer>
-                                <span className='text-sm'>year</span>
+                                <span className='text-lg'>year</span>
                             </div>
                         </div>
                     )}
@@ -144,7 +144,7 @@ export default function Timer() {
                         <div className='flex'>
                             <div className='flex flex-col items-center ml-2'>
                                 <div className='bg-transparent p-1'>{displayTime(timer.day, 3)}</div>
-                                <span className='text-sm'>day</span>
+                                <span className='text-lg'>day</span>
                             </div>
                         </div>
                     )}
@@ -155,34 +155,34 @@ export default function Timer() {
                     <div className='flex'>
 
                         <div className='flex flex-col items-center'>
-                            <input className='placeholder:text-black bg-transparent p-1 w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
+                            <input className='placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
                                 type='number' max={23} min={0}
                                 onChange={(event) => handleOnChange(event.target.value, "hour")}
                                 value={displayTime(timer.hour, 2)}></input>
-                            <span className='text-sm'>hr</span>
+                            <span className='text-lg'>hr</span>
                         </div>
 
                         <span>:</span>
 
                         <div className='flex flex-col items-center'>
-                            <input className='placeholder:text-black bg-transparent p-1 w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
+                            <input className='placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
                                 type='number' max={59} min={0}
                                 onChange={(event) => handleOnChange(event.target.value, "min")}
                                 value={displayTime(timer.min, 2)}></input>
-                            <span className='text-sm'>min</span>
+                            <span className='text-lg'>min</span>
                         </div>
 
                         <span>:</span>
 
                         <div className='flex flex-col items-center'>
-                            <input className='placeholder:text-black bg-transparent p-1 w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
+                            <input className='placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
                                 type='number' max={59} min={0}
                                 onChange={(event) => handleOnChange(event.target.value, "sec")}
                                 value={displayTime(timer.sec, 2)}></input>
-                            <span className='text-sm'>sec</span>
+                            <span className='text-lg'>sec</span>
                         </div>
 
-                        <span className='text-3xl'>.{displayTime(timer.ms, 2)}</span>
+                        <span className='text-xl sm:text-3xl'>.{displayTime(timer.ms, 2)}</span>
                     </div>
                 </div>
 
