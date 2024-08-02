@@ -19,7 +19,7 @@ export default function NavBar() {
     <div className='fixed z-10 w-full'>
 
       {/* Header */}
-      <div className='relative z-20 h-10 md:h-14 px-5 md:px-24 flex justify-between items-center bg-[#272635] text-white'>
+      <div className='relative z-20 h-10 md:h-14 px-5 md:px-12 lg:px-24 flex justify-between items-center bg-[#272635] text-white'>
 
         {/* Hamburgur */}
         <div className='flex md:hidden p-1 justify-center items-center'
@@ -41,8 +41,9 @@ export default function NavBar() {
 
         <div className='text-xl font-bold'>Algebraic Timer</div>
 
+        {/* Main Navbar */}
         <div className='flex items-center'>
-          <div className=' hidden md:flex pr-24 gap-5'>
+          <div className=' hidden md:flex pr-16 lg:pr-24 gap-5'>
             {links.map(({ title, href, icon }) => (
               <div className='hover:bg-slate-200 flex justify-center items-center gap-1 p-2 rounded-md'
                 key={title}
@@ -59,35 +60,35 @@ export default function NavBar() {
 
       {/* Sidebar */}
       <AnimatePresence>
-      {isOpen && (
-        <motion.div className='absolute left-0 top-10 backdrop-blur-sm w-full h-screen flex justify-start'
-          onClick={() => setIsOpen(false)}>
+        {isOpen && (
+          <motion.div className='absolute left-0 top-10 backdrop-blur-sm w-full h-screen flex justify-start'
+            onClick={() => setIsOpen(false)}>
 
-          <motion.div className='py-10 w-[200px] bg-[#A6A6A8]'
-          initial={{translateX:"-200px"}}
-          animate={{translateX:"0px"}}
-          exit={{translateX:"-200px"}}
-          transition={{ease:'easeInOut', duration:0.4}}
-          >
-            <div className='flex flex-col items-center w-full'>
+            <motion.div className='py-10 w-[200px] bg-[#A6A6A8]'
+              initial={{ translateX: "-200px" }}
+              animate={{ translateX: "0px" }}
+              exit={{ translateX: "-200px" }}
+              transition={{ ease: 'easeInOut', duration: 0.4 }}
+            >
+              <div className='flex flex-col items-center w-full'>
 
-              {links.map(({ title, href, icon }) => (
-                <div className='hover:bg-slate-200 flex justify-center gap-1 p-2 w-full'
-                  key={title}
-                >
-                  <div className='flex justify-start w-32 gap-1'>
-                    <div className='flex items-center justify-center'>
-                      <img className="size-[15px]" src={icon}></img>
+                {links.map(({ title, href, icon }) => (
+                  <div className='hover:bg-slate-200 flex justify-center gap-1 p-2 w-full'
+                    key={title}
+                  >
+                    <div className='flex justify-start w-32 gap-1'>
+                      <div className='flex items-center justify-center'>
+                        <img className="size-[15px]" src={icon}></img>
+                      </div>
+                      <Link href={href}>{title}</Link>
                     </div>
-                    <Link href={href}>{title}</Link>
-                  </div>
 
-                </div>
-              ))}
-            </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
+        )}
       </AnimatePresence>
     </div>
   )
