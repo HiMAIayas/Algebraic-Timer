@@ -5,6 +5,7 @@ import { displayTime, displayToSec, secToDisplay } from '@/libs/time-function';
 import { evaluate, parser } from 'mathjs';
 import YearTimer from './YearTimer';
 import { motion } from 'framer-motion';
+import EquationGraph from './EquationGraph';
 
 
 //Note: text-wdith = 0.45*font-size(text height)
@@ -28,6 +29,11 @@ export default function Timer() {
     const time_at_start = useRef(Date.now());
 
     const equation = useRef("t");
+    const [datapoint, setDatapoint] = useState({
+        x: new Float64Array(),
+        y1: new Float64Array(),
+        y2: new Float64Array(),
+    })
 
 
 
@@ -45,15 +51,28 @@ export default function Timer() {
 
         const pars = parser();
         let isReady = true;
+
+        let xArr = new Float64Array(100);
+        let y1Arr = new Float64Array(100);
+        let y2Arr = new Float64Array(100);
+
+        let fn:Number;
         try {
             pars.evaluate(`f(t)=${equation.current}`);
-            pars.evaluate(`f(${time_n.current})`);
+            fn = pars.evaluate(`f(${time_n.current})`);
+
+            xArr[0] = 1;
+            y1Arr[0] = 2;
         } catch (error) {
             isReady = false;
             console.log(error);
         }
 
         if (isReady) {
+
+            setDatapoint({x:xArr, y1:y1Arr, y2:y2Arr})
+
+
             setPhase("stop");
         }
     }
@@ -232,6 +251,8 @@ export default function Timer() {
                 </div>
 
             </form>
+
+            <EquationGraph datapoint={datapoint}></EquationGraph>
 
 
         </div>
