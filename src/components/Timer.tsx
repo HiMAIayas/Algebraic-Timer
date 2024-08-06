@@ -252,7 +252,7 @@ export default function Timer() {
 
             </form>
 
-            <div className='w-full flex justify-center'>
+            <div className='w-full flex flex-col justify-center items-center'>
             <EquationGraph datapoint={datapoint}></EquationGraph>
             </div>
 
