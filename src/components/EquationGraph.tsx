@@ -1,5 +1,6 @@
+import dynamic from 'next/dynamic';
 import React from 'react'
-import Plot from 'react-plotly.js';
+const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
 interface Prop{
     datapoint:{
