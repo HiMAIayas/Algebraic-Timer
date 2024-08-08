@@ -9,8 +9,15 @@ type DisplayTimerType = {
 }
 
 
-export function displayTime(num:number, digit:number){
+export function displayTime(num:number, digit:number, isMillisec=false){
     let numstr = num.toString();
+    
+    if (isMillisec){
+        if (num<10) return "00";
+        else if (num<100) return "0"+numstr[0];
+    }
+    
+
     if (numstr.length>digit) numstr = numstr.substring(0,digit);
   return (
     numstr.padStart(digit,"0")

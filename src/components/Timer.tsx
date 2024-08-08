@@ -23,10 +23,7 @@ export default function Timer() {
     const [phase, setPhase] = useState("default"); //default stop running end
 
     const time_n = useRef(0); // end point | n in f(n)
-    const time_t = useRef(0); // iterator  | t in f(t)
-
-    const time_elapsed = useRef(0);
-    const time_at_start = useRef(Date.now());
+    const time_t = useRef(0);
 
     const equation = useRef("t");
     const [datapoint, setDatapoint] = useState({
@@ -71,8 +68,7 @@ export default function Timer() {
         if (isReady) {
 
             setDatapoint({x:xArr, y1:y1Arr, y2:y2Arr})
-
-
+            time_t.current = 0;
             setPhase("stop");
         }
     }
@@ -107,6 +103,10 @@ export default function Timer() {
         const pars = parser();
         let interval: NodeJS.Timeout | undefined = undefined;
         let fn: number;
+        let time_at_start = Date.now();
+        let time_elapsed = time_t.current;
+
+
         if (phase === "running") {
             pars.evaluate("f(t)=" + equation.current);
             fn = pars.evaluate(`f(${time_n.current})`);
@@ -117,13 +117,21 @@ export default function Timer() {
                     setPhase("end");
                 }
                 else {
-                    time_t.current += 0.05;
-                    setTimer(secToDisplay(fn - pars.evaluate(`f(${time_t.current})`)));
+                    time_t.current = (Date.now()-time_at_start)/1000 + time_elapsed;
+
+                    try {
+                        setTimer(secToDisplay(fn - pars.evaluate(`f(${time_t.current})`)));
+                    } catch (error) {
+                        setTimer({isPositive:true, ms:0, sec:0, min:0, hour:0, day:0, year:0});
+                    }
+                    
+                    
                 }
             }, 50);
         }
         else if (interval != undefined) {
             clearInterval(interval);
+
         }
 
         return () => clearInterval(interval);
@@ -217,7 +225,7 @@ export default function Timer() {
                                     <span className='text-lg'>sec</span>
                                 </div>
 
-                                <span className='absolute -right-10 text-xl sm:text-3xl'>.{displayTime(timer.ms, 2)}</span>
+                                <span className='absolute -right-10 text-xl sm:text-3xl'>.{displayTime(timer.ms, 2, true)}</span>
 
                             </div>
 
