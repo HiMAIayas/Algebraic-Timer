@@ -18,13 +18,20 @@ export default function EquationGraph({datapoint}:Prop) {
         { x: datapoint.x,
           y: datapoint.y1,
           type: 'scatter',
-          mode: 'lines+markers',
-          marker: {color: 'red'},}
+          name:'f(t)',
+          mode: 'lines',
+          marker: {color: 'red'},},
+
+        { x: datapoint.x,
+          y: datapoint.y2,
+          name: 'display',
+          type: 'scatter',
+          mode: 'lines',
+          marker: {color: 'blue'},}
+        
       ]}
       layout={{
-        width: 320, 
-        height: 240, 
-        title: 'A Fancy Plot'
+        title: 'Graph'
       }}
       />
     </div>

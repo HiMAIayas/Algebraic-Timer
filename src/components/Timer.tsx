@@ -53,19 +53,38 @@ export default function Timer() {
         let y1Arr = new Float64Array(100);
         let y2Arr = new Float64Array(100);
 
-        let fn:Number;
+        let fn=0;
         try {
             pars.evaluate(`f(t)=${equation.current}`);
             fn = pars.evaluate(`f(${time_n.current})`);
 
-            xArr[0] = 1;
-            y1Arr[0] = 2;
+            
         } catch (error) {
             isReady = false;
             console.log(error);
         }
 
         if (isReady) {
+            let x_val:number;
+            let y1_val:number;
+
+            for (let i=0; i<101; i++){
+
+                try {
+                    x_val = i*time_n.current/100;
+                    y1_val = pars.evaluate(`f(${x_val})`);
+
+                    xArr[i] = x_val;
+                    y1Arr[i] = y1_val;
+                    y2Arr[i] = fn-y1_val;
+
+                } catch (error) {
+                    
+                }
+
+
+
+            }
 
             setDatapoint({x:xArr, y1:y1Arr, y2:y2Arr})
             time_t.current = 0;
@@ -260,7 +279,7 @@ export default function Timer() {
 
             </form>
 
-            <div className='w-full flex flex-col justify-center items-center'>
+            <div className='w-full flex flex-col justify-center items-center mt-16'>
             <EquationGraph datapoint={datapoint}></EquationGraph>
             </div>
 
