@@ -57,6 +57,7 @@ export default function Timer() {
         try {
             pars.evaluate(`f(t)=${equation.current}`);
             fn = pars.evaluate(`f(${time_n.current})`);
+            setTimer(secToDisplay(fn - pars.evaluate(`f(0)`)));
 
             
         } catch (error) {

@@ -45,7 +45,7 @@ export default function NavBar() {
         <div className='flex items-center'>
           <div className=' hidden md:flex pr-16 lg:pr-24 gap-5'>
             {links.map(({ title, href, icon }) => (
-              <div className='hover:bg-slate-200 flex justify-center items-center gap-1 p-2 rounded-md'
+              <div className='hover:bg-[#656293] flex justify-center items-center gap-1 p-2 rounded-md'
                 key={title}
               >
                 <img className="size-[15px] " src={icon}></img>
