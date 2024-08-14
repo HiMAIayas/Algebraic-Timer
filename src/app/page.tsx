@@ -21,9 +21,7 @@ export default function Home() {
           <br/><br/>
           This program can handle polynomial, trigonometric, logarithmic, and reciprocal functions.
           <br/><br/>
-          Function keywords: sin, cos, tan, cosec, sec, cot, log, ln, e, sqrt, pi.
-          <br/><br/>
-          Note that if it displays NAN or INF, that's because f(t) or f(n) is beyond floating point number limit. 
+          Note that if it displays NAN or INF, that is because f(t) or f(n) is beyond floating point number limit. 
         </div>
       </div>
     </div>

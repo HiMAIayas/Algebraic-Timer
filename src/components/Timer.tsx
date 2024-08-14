@@ -164,7 +164,21 @@ export default function Timer() {
             <form onSubmit={checkAvalability}>
                 {/* Function input */}
                 <div className='sm:px-12 md:px-24 lg:px-48'>
-                    <label htmlFor="equation" className="text-sm font-medium leading-6 text-gray-900">Enter Equation</label>
+                    <div className='flex items-center gap-2'>
+                        <label htmlFor="equation" className="text-sm font-medium leading-6 text-gray-900">Enter Equation</label>
+                        <div className='relative group'>
+                            <img src="./images/question.png" className='size-[20px]'></img>
+                            <div className='absolute top-0 -right-48 w-48 px-2 z-40'>
+                            <div className='p-3 rounded-lg bg-[#eceee1] hidden group-hover:block text-sm'>
+                                Function f(t) determines display of time.
+                                Keywords: sin, cos, tan, cosec, sec, cot, log, e, sqrt, pi, abs.
+                            </div>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                    
                     <div className="relative mt-2 rounded-md shadow-sm flex">
                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                             <span className="text-gray-500 sm:text-sm italic">	&fnof;(t) = </span>
@@ -178,9 +192,7 @@ export default function Timer() {
                 </div>
 
                 {/* Timer */}
-                <div className='flex text-5xl sm:text-7xl w-full justify-center items-center pt-28 pb-16 font-digital-mono'
-
-                >
+                <div className='flex text-5xl sm:text-7xl w-full justify-center items-center pt-28 pb-16 font-digital-mono'>
 
 
 
@@ -218,30 +230,37 @@ export default function Timer() {
                             <div className='flex'>
 
                                 <div className='flex flex-col items-center'>
-                                    <input className='placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
+                                    <input className={`placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] ${phase==="default"? "hover:border-black rounded-md":""}`}
                                         type='number' max={23} min={0}
                                         onChange={(event) => handleOnChange(event.target.value, "hour")}
-                                        value={displayTime(timer.hour, 2)}></input>
+                                        value={displayTime(timer.hour, 2)}
+                                        disabled={phase==="default"? false:true}
+                                    ></input>
+                                        
                                     <span className='text-lg'>hr</span>
                                 </div>
 
                                 <span>:</span>
 
                                 <div className='flex flex-col items-center'>
-                                    <input className='placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
+                                    <input className={`placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] ${phase==="default"? "hover:border-black rounded-md":""}`}
                                         type='number' max={59} min={0}
                                         onChange={(event) => handleOnChange(event.target.value, "min")}
-                                        value={displayTime(timer.min, 2)}></input>
+                                        value={displayTime(timer.min, 2)}
+                                        disabled={phase==="default"? false:true}
+                                    ></input>
                                     <span className='text-lg'>min</span>
                                 </div>
 
                                 <span>:</span>
 
                                 <div className='flex flex-col items-center'>
-                                    <input className='placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] hover:border-black rounded-md'
+                                    <input className={`placeholder:text-black bg-transparent p-1 w-[55px] sm:w-[75px] border-transparent border-[1px] ${phase==="default"? "hover:border-black rounded-md":""}`}
                                         type='number' max={59} min={0}
                                         onChange={(event) => handleOnChange(event.target.value, "sec")}
-                                        value={displayTime(timer.sec, 2)}></input>
+                                        value={displayTime(timer.sec, 2)}
+                                        disabled={phase==="default"? false:true}    
+                                    ></input>
                                     <span className='text-lg'>sec</span>
                                 </div>
 
