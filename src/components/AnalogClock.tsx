@@ -1,5 +1,6 @@
 "use client"
-import { DateToDeg } from '@/libs/time-function';
+import { DateToDeg, displayTime } from '@/libs/time-function';
+import { findCity } from '@/libs/timezone-function';
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react'
 
@@ -10,18 +11,40 @@ const clkLabelRot = ["rotate-[180deg]","rotate-[210deg]","rotate-[240deg]","rota
                     ,"rotate-[0deg]","rotate-[30deg]","rotate-[60deg]","rotate-[90deg]","rotate-[120deg]","rotate-[150deg]"]
 
 
-export default function AnalogClock() {
+interface Prop{
+    timezone:string;
+}
+
+
+export default function AnalogClock({timezone}:Prop) {
+    const startTime = new Date().toLocaleTimeString("en-US",{timeZone: timezone,hour:"2-digit",minute:"2-digit",second:"2-digit"});
+    const [country,city] = findCity(timezone);
 
     const [date, setDate] = useState(new Date());
+    const [hh, setHH] = useState(startTime.substring(0,2));
+    const [mm, setMM] = useState(startTime.substring(3,5));
+    const [ss, setSS] = useState(startTime.substring(6,8));
+    const [isDay,setIsDay] = useState(startTime.substring(9)=="AM");
 
     useEffect(() => {
+        let curTime:string;
         const interval = setInterval(() => {
+            curTime = new Date().toLocaleTimeString("en-US",{
+                timeZone: timezone, 
+                hour:"2-digit",
+                minute:"2-digit",
+                second:"2-digit"
+            });
             setDate(new Date());
+            setHH(curTime.substring(0,2));
+            setMM(curTime.substring(3,5));
+            setSS(curTime.substring(6,8));
+            setIsDay(curTime.substring(9)=="AM");
+
+
+
             //Debug
-            console.log("Sec:"+date.getSeconds()+" => "+DateToDeg(date,"second"))
-            console.log("Min:"+date.getMinutes()+" => "+DateToDeg(date,"minute"))
-            console.log("Hr:"+date.getHours()+" => "+DateToDeg(date,"hour"))
-            console.log('\n');
+
             
 
         }, 1000)
@@ -30,42 +53,45 @@ export default function AnalogClock() {
     })
 
     return (
-        <div>
-            <div className="relative rounded-full size-48 ring-[3px] ring-gray-400"
+        <div className='flex flex-col items-center gap-4'>
+            <div className="relative rounded-full size-48 bg-slate-50 ring-[3px] ring-black flex justify-center items-center"
 
 
             >
                 {clkLabelRot.map((deg) => (
-                    <div className={`origin-top w-1 h-24 absolute top-[96px] left-[94px] pt-[80px] ${deg} bg-lime-100`}
+                    <div className={`origin-top w-1 h-24 absolute top-[96px] left-[94px] pt-[80px] ${deg}`}
                     key={deg}
                     >
-                        <div className='bg-gray-400 w-1 h-full'></div>
+                        <div className='bg-black w-1 h-full rounded-full'></div>
                     </div>
                 ))}
 
 
-                
+                <div className='rounded-full bg-black size-6'></div>
 
-
-                <motion.div className='origin-top w-[2px] h-20 absolute top-24 left-[94px] bg-black rounded-full'
-                    animate={{ rotate: `${180+DateToDeg(date, "second")}deg` }}>
+                <motion.div className='origin-top w-[1px] h-20 absolute top-24 left-[95.5px] bg-red-500 rounded-full'
+                    initial={{ rotate: "180deg"}}
+                    animate={{ rotate: `${180+DateToDeg(hh,mm,ss, "second")}deg` }}>
                 </motion.div>
-                <motion.div className='origin-top w-[3px] h-12 absolute top-24 left-[93px] bg-blue-500 rounded-full'
+                <motion.div className='origin-top w-[2px] h-16 absolute top-24 left-[95px] bg-black rounded-full'
                     initial={{ rotate: "180deg" }}
-                    animate={{ rotate: `${180+DateToDeg(date, "minute")}deg` }}>
+                    animate={{ rotate: `${180+DateToDeg(hh,mm,ss, "minute")}deg` }}>
                 </motion.div>
-                <motion.div className='origin-top w-1 h-8 absolute top-24 left-[92px] bg-red-500 rounded-full'
+                <motion.div className='origin-top w-[6px] h-8 absolute top-24 left-[93px] bg-black rounded-full'
                     initial={{ rotate: "180deg" }}
-                    animate={{ rotate: `${180+DateToDeg(date, "hour")}deg` }}>
+                    animate={{ rotate: `${180+DateToDeg(hh,mm,ss, "hour")}deg` }}>
                 </motion.div>
 
 
             </div>
 
-            <div className='relative bg-slate-200 size-[192px] mt-10 ring-1 ring-black border-black'>
-                <div className='bg-blue-300 h-[96px]'></div>
-                <div className='absolute top-[96px] left-[96px] w-[4px] h-[96px] bg-red-500 z-50'></div>
+
+
+            <div className='flex gap-1 text-white text-3xl'>
+                <div className='w-12 py-2 px-1 bg-gradient-to-b from-gray-900 to-gray-600 rounded-md text-center'>{hh}</div>
+                <div className='w-12 py-2 px-1 bg-gradient-to-b from-gray-900 to-gray-600 rounded-md text-center'>{mm}</div>
             </div>
+            <span>{city}, {country}</span>
         </div>
     )
 }

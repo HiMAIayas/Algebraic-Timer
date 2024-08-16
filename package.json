@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vvo/tzdb": "^6.142.0",
     "framer-motion": "^11.3.19",
     "mathjs": "^13.0.3",
     "next": "14.1.4",

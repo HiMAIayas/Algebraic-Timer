@@ -1,6 +1,3 @@
-import { BigNumber } from 'mathjs';
-import React from 'react'
-
 type DisplayTimerType = {
     ms:number,
     sec:number,
@@ -72,24 +69,25 @@ export function secToDisplay(time:number){
 
 
 //Global Time
-export function DateToDeg(date:Date, mode:string){
+export function DateToDeg(hh:string, mm:string,ss:string,mode:string){
+    // get hms from Date.tolocalTimeString. We parse it to number later.
     let deg:number
 
     switch (mode) {
         case "second":
-            deg = date.getSeconds()*6;
+            deg = parseInt(ss)*6;
             break;
         
         case "minute":
-            deg = date.getMinutes()*6 + date.getSeconds()*0.1;  //TODO: optimise
+            deg = parseInt(mm)*6 + parseInt(ss)*0.1;  //TODO: optimise
             break;
         
         case "hour":
-            deg = date.getHours()*30 + date.getMinutes()*0.5;
+            deg = parseInt(hh)*30 + parseInt(mm)*0.5;
             break;
     
         default:
-            throw new Error("DateToDeg error, mode is not second/minute/hour")
+            throw new Error("DateToDeg error, mode "+mode+" is not second/minute/hour")
             break;
     }
     return deg;
