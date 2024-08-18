@@ -53,7 +53,7 @@ export default function AnalogClock({timezone}:Prop) {
     })
 
     return (
-        <div className='flex flex-col items-center gap-4'>
+        <div className='flex flex-col items-center gap-4 w-[200px]'>
             <div className="relative rounded-full size-48 bg-slate-50 ring-[3px] ring-black flex justify-center items-center"
 
 
@@ -87,11 +87,14 @@ export default function AnalogClock({timezone}:Prop) {
 
 
 
-            <div className='flex gap-1 text-white text-3xl'>
-                <div className='w-12 py-2 px-1 bg-gradient-to-b from-gray-900 to-gray-600 rounded-md text-center'>{hh}</div>
-                <div className='w-12 py-2 px-1 bg-gradient-to-b from-gray-900 to-gray-600 rounded-md text-center'>{mm}</div>
+            <div className='flex gap-[1px] text-white text-3xl'>
+                <div className='w-12 py-2 px-1 bg-gradient-to-b from-gray-900 to-gray-600 rounded-l-md text-center'>{hh}</div>
+                <div className='w-12 py-2 px-1 bg-gradient-to-b from-gray-900 to-gray-600 rounded-r-md text-center'>{mm}</div>
+                <div className='w-12 py-2 px-1 bg-gradient-to-b from-gray-900 to-gray-600 rounded-md flex items-center justify-center ml-1 text-xl'>
+                    {`${isDay?"AM":"PM"}`}
+                </div>
             </div>
-            <span>{city}, {country}</span>
+            <span className='text-center text-wrap font-bold'>{city}, {country}</span>
         </div>
     )
 }
