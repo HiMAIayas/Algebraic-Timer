@@ -13,10 +13,15 @@ export default function test() {
         </div>
 
         <br/><br/>
+        
 
         <hr/>
-               
+        <br/>
+        <div className='text-xl w-full text-center'>Select City</div>  
         <TimezoneClockGrid></TimezoneClockGrid>
+
+
+        
 
     </div>
   )

@@ -38,7 +38,7 @@ export default function TimezoneClockGrid() {
     return (
         <div className='flex flex-col items-center'>
             <div className='relative group' ref={boxRef}>
-                <div className="relative mt-2 rounded-md shadow-sm flex w-[400px]">
+                <div className="relative mt-2 rounded-md shadow-sm flex w-[300px] sm:w-[400px]">
 
                     {/* Search */}
                     <input className="w-full rounded-md border-0 py-1.5 pl-2 pr-14 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

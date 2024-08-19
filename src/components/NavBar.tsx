@@ -2,8 +2,8 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-import React, { useState } from 'react'
-
+import React, { useState } from 'react';
+import { useTheme } from 'next-themes';
 
 
 const links = [
@@ -14,6 +14,13 @@ const links = [
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  function handleThemeToggle(){
+    if (theme==="light") setTheme('dark');
+    else if (theme==="dark") setTheme('light');
+    else setTheme('dark');
+  }
 
   return (
     <div className='fixed z-10 w-full'>
@@ -53,7 +60,7 @@ export default function NavBar() {
               </div>
             ))}
           </div>
-          <div className='rounded-md hover:bg-slate-200'>Theme</div>
+          <div className='rounded-md hover:bg-[#656293] dark:text-lime-400 cursor-pointer' onClick={()=>handleThemeToggle()}>Theme</div>
         </div>
       </div>
 

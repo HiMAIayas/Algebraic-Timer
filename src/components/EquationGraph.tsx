@@ -12,8 +12,8 @@ interface Prop{
 
 export default function EquationGraph({datapoint}:Prop) {
   return (
-    <div>
-      <Plot 
+    <div className='w-[300px] sm:w-[480px] md:w-[560px] lg:w-[720px]'>
+      <Plot
       data={[
         { x: datapoint.x,
           y: datapoint.y1,
@@ -31,8 +31,14 @@ export default function EquationGraph({datapoint}:Prop) {
         
       ]}
       layout={{
-        title: 'Graph'
+        title: 'Graph',
+        margin:{l:0, r:0},
+        legend:{xanchor:'right', yanchor:'top', bgcolor:'rgba(255,255,255,0.7)'}
+        
       }}
+      useResizeHandler={true}
+      style={{maxWidth:"100%", maxHeight:"100%"}}
+      
       />
     </div>
   )
