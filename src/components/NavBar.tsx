@@ -16,17 +16,12 @@ export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme } = useTheme();
 
-  function handleThemeToggle(){
-    if (theme==="light") setTheme('dark');
-    else if (theme==="dark") setTheme('light');
-    else setTheme('dark');
-  }
 
   return (
     <div className='fixed z-10 w-full'>
 
       {/* Header */}
-      <div className='relative z-20 h-10 md:h-14 px-5 md:px-12 lg:px-24 flex justify-between items-center bg-[#272635] text-white'>
+      <div className='relative z-20 h-10 md:h-14 px-5 md:px-12 lg:px-24 flex justify-between items-center bg-[#272635] dark:bg-[#3c3c3c] text-white'>
 
         {/* Hamburgur */}
         <div className='flex md:hidden p-1 justify-center items-center'
@@ -52,15 +47,15 @@ export default function NavBar() {
         <div className='flex items-center'>
           <div className=' hidden md:flex pr-16 lg:pr-24 gap-5'>
             {links.map(({ title, href, icon }) => (
-              <div className='hover:bg-[#656293] flex justify-center items-center gap-1 p-2 rounded-md'
+              <Link href={href} className='hover:bg-[#656293] flex justify-center items-center gap-1 p-2 rounded-md'
                 key={title}
               >
                 <img className="size-[15px] " src={icon}></img>
-                <Link href={href}>{title}</Link>
-              </div>
+                <span>{title}</span>
+              </Link>
             ))}
           </div>
-          <div className='rounded-md hover:bg-[#656293] dark:text-lime-400 cursor-pointer' onClick={()=>handleThemeToggle()}>Theme</div>
+          <div className='rounded-md hover:bg-[#656293]  cursor-pointer' onClick={()=>setTheme(theme === 'light' ? 'dark' : 'light')}>Theme</div>
         </div>
       </div>
 

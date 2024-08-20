@@ -6,6 +6,9 @@ import { type ThemeProviderProps } from 'next-themes/dist/types'
 
 export default function AppThemeProvider({children}:{children:React.ReactNode}) {
   return (
-    <ThemeProvider>{children}</ThemeProvider>
+    <ThemeProvider 
+            defaultTheme="system"
+            attribute="class"
+    >{children}</ThemeProvider>
   )
 }

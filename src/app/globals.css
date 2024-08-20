@@ -7,6 +7,10 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
+[data-theme='dark'] {
+  --background: black;
+  --foreground: white;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
