@@ -19,10 +19,6 @@ export default function test() {
         <br/>
         <div className='text-xl w-full text-center'>Select City</div>  
         <TimezoneClockGrid></TimezoneClockGrid>
-
-
-        
-
     </div>
   )
 }

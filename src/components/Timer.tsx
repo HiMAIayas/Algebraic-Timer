@@ -20,6 +20,11 @@ export default function Timer() {
         day: 0,
         year: 0
     });
+    const previousTimer = useRef({
+        hour:0,
+        min:0,
+        sec:0
+    })
     const [phase, setPhase] = useState("default"); //default stop running end
 
     const time_n = useRef(0); // end point | n in f(n)
@@ -54,6 +59,7 @@ export default function Timer() {
         let y2Arr = new Float64Array(100);
 
         let fn=0;
+        previousTimer.current = {hour:timer.hour, min:timer.min, sec:timer.sec}
         try {
             pars.evaluate(`f(t)=${equation.current}`);
             fn = pars.evaluate(`f(${time_n.current})`);
@@ -114,7 +120,8 @@ export default function Timer() {
     }
 
     function reset() {
-        setTimer({ isPositive: true, ms: 0, sec: 0, min: 0, hour: 0, day: 0, year: 0 });
+        
+        setTimer({ isPositive: true, ms: 0, sec: previousTimer.current.sec, min: previousTimer.current.min, hour: previousTimer.current.hour, day: 0, year: 0 });
         setPhase('default');
     }
 
